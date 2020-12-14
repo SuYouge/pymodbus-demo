@@ -12,7 +12,7 @@ def on_connect(client, userdata, flags, rc):
   
 def on_message(client, userdata, msg):
     img = base64.b64decode(msg.payload)
-    file = open('./mqtt-demo/receive.jpg','wb')
+    file = open('./mqtt-demo/sdjflksd.jpg','wb')
     file.write(img)
     file.close()
     print ('image received')

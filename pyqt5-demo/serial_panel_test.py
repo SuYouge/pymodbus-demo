@@ -32,7 +32,8 @@ class readThread(QThread):
         while self.run_flag:
             try:
                 if self.ser.in_waiting:
-                    read_str=self.ser.read(self.ser.in_waiting ).decode("gbk")
+                    # read_str=self.ser.read(self.ser.in_waiting ).decode("gbk")
+                    read_str=self.ser.read(self.ser.in_waiting ).hex()
                     self.updated.emit(str("[Read ] {}".format(read_str)))
                     time.sleep(0.05) # CPU占用过高
             except Exception as e:
@@ -93,9 +94,16 @@ class MyWindow(QtWidgets.QMainWindow,Ui_MainWindow):
             self._serial_state("wait")
     
     def send_test(self):
-        send = "Hi"
+        # send = "Hi"
+        # send = "01050000FF008C3A" # 1 on
+        # send = "010F000000080100FE95" # 1-8off
+        # send = "010400000004F1C9" # dac 1
+        # send = "0104000000040000" # dac 1
+        # send = "01050001FF000000" # 3 on
+        send = "0105000100000000" # 1 3 oof
         if self.serial_flag and self.ser.isOpen():
-            result=self.ser.write((send + "\n").encode("gbk")) # write data
+            send = bytes.fromhex(send)
+            result = self.ser.write(send)
             self.serial_message.append("[Write] {}".format(send))
 
     def thread_append(self, text):
@@ -119,8 +127,10 @@ class MyWindow(QtWidgets.QMainWindow,Ui_MainWindow):
             exec('self.led_widget.led{0} = Led(self.led_widget, on_color=Led.red, shape=Led.circle, build="debug")'.format(i))
 
     def _arrange_leds(self):
-        for i in range (0,8):
-            exec('self.led_widget._layout.addWidget(self.led_widget.led{0},1,{0}, 1, 1, QtCore.Qt.AlignCenter)'.format(i))
+        for i in range (0,4):
+            exec('self.led_widget._layout.addWidget(self.led_widget.led{0},0,{0}, 1, 1, QtCore.Qt.AlignCenter)'.format(i))
+        for i in range (4,8):
+            exec('self.led_widget._layout.addWidget(self.led_widget.led{0},1,{0}-4, 1, 1, QtCore.Qt.AlignCenter)'.format(i))
 
 if __name__ == "__main__":
     app=QtWidgets.QApplication(sys.argv)            #pyqt窗口必须在QApplication方法中使用

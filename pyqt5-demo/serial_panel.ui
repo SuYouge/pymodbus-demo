@@ -105,7 +105,7 @@
      <string>SendTest</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -126,7 +126,12 @@
       <widget class="QComboBox" name="serial_port">
        <item>
         <property name="text">
-         <string>/dev/ttyS1</string>
+         <string>/dev/ttyS9</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>/dev/ttyS10</string>
         </property>
        </item>
       </widget>
@@ -350,5 +355,6 @@
   <slot>serial_connect()</slot>
   <slot>serial_disconnect()</slot>
   <slot>send_test()</slot>
+  <slot>test_click()</slot>
  </slots>
 </ui>
