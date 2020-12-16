@@ -123,18 +123,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QComboBox" name="serial_port">
-       <item>
-        <property name="text">
-         <string>/dev/ttyS9</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>/dev/ttyS10</string>
-        </property>
-       </item>
-      </widget>
+      <widget class="QComboBox" name="serial_port"/>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="title_3">

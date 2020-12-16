@@ -9,7 +9,7 @@ from PyQt5.QtSerialPort import QSerialPortInfo, QSerialPort
 from PyQt5.QtCore import QThread, pyqtSignal
 
 import serial
-import serial.tools.list_ports
+# import serial.tools.list_ports
 import time
 # 中文乱码问题
 class readThread(QThread):
@@ -48,6 +48,8 @@ class MyWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self._create_leds()
         self._arrange_leds()
         self.serial_flag = False
+        for i in range (1,21):
+            exec('self.serial_port.addItem("/dev/ttyS{0}")'.format(i))
 
     def serial_connect(self): # button
         if not self.serial_flag:

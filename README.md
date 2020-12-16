@@ -6,8 +6,6 @@
 
 [virtual env guide](https://www.cnblogs.com/freely/p/8022923.html)
 
-13:00 - 21:00
-
 ## pyqt5-demo
 
 ### We need
@@ -20,6 +18,33 @@
 ```
 pyuic5 -o serial_panel.py serial_panel.ui
 ```
+
+### serial panel
+
+`pip install pyserial`
+
+### modbus_tk rtu
+
+[ref](https://www.cnblogs.com/siyun/p/10158444.html)
+
+`pip install modbus_tk`
+
+```
+READ_COILS   H01  读线圈
+READ_DISCRETE_INPUTS    H02  读离散输入
+READ_HOLDING_REGISTERS  H03  读寄存器
+READ_INPUT_REGISTERS    H04  读输入寄存器
+WRITE_SINGLE_COIL   H05  写单一线圈
+WRITE_SINGLE_REGISTER   H06  写单一寄存器
+WRITE_MULTIPLE_COILS    H15  写多个线圈 
+WRITE_MULTIPLE_REGISTERS    H16  写多寄存器 
+```
+run `python modbus-tk-slave.py`, command `set_values 1 0 0 1 2 3`
+and run `python modbus-tk-master.py` get value `(1,2,3)`
+
+### config params
+
+get/set config params with pyyaml
 
 ## mqtt-demo
 
