@@ -16,7 +16,7 @@
 * plot line for analog signal
 
 ```
-pyuic5 -o serial_panel.py serial_panel.ui
+pyuic5 serial_panel.ui -o serial_panel.py
 ```
 
 ### serial panel

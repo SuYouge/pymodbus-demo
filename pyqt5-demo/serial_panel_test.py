@@ -58,7 +58,7 @@ class MyWindow(QtWidgets.QMainWindow,Ui_MainWindow):
             data_bit = int(self.data_bit.currentText())
             parity = self.parity.currentText()
             stop_bit = int(self.stop_bit.currentText())
-            port_list = list(serial.tools.list_ports.comports())
+            # port_list = list(serial.tools.list_ports.comports())
             try:
                 self.ser=serial.Serial(port=serial_port,baudrate=baud_rate,bytesize=data_bit,parity=parity,stopbits=stop_bit,timeout=0.5)
                 if self.ser.isOpen():
@@ -99,10 +99,10 @@ class MyWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         # send = "Hi"
         # send = "01050000FF008C3A" # 1 on
         # send = "010F000000080100FE95" # 1-8off
-        # send = "010400000004F1C9" # dac 1
+        send = "010400000004F1C9" # dac 1
         # send = "0104000000040000" # dac 1
         # send = "01050001FF000000" # 3 on
-        send = "0105000100000000" # 1 3 oof
+        # send = "0105000100000000" # 1 3 oof
         if self.serial_flag and self.ser.isOpen():
             send = bytes.fromhex(send)
             result = self.ser.write(send)

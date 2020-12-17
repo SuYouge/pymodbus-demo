@@ -94,6 +94,9 @@ class Ui_MainWindow(object):
         self.stop_bit.addItem("")
         self.stop_bit.addItem("")
         self.formLayout.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.stop_bit)
+        self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_4.setGeometry(QtCore.QRect(200, 260, 80, 23))
+        self.pushButton_4.setObjectName("pushButton_4")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 622, 20))
@@ -112,6 +115,7 @@ class Ui_MainWindow(object):
         self.pushButton.clicked.connect(MainWindow.serial_connect)
         self.pushButton_2.clicked.connect(MainWindow.serial_disconnect)
         self.pushButton_3.clicked.connect(MainWindow.send_test)
+        self.pushButton_4.clicked.connect(MainWindow.test_click)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -146,4 +150,5 @@ class Ui_MainWindow(object):
         self.stop_bit.setItemText(0, _translate("MainWindow", "1"))
         self.stop_bit.setItemText(1, _translate("MainWindow", "1.5"))
         self.stop_bit.setItemText(2, _translate("MainWindow", "2"))
+        self.pushButton_4.setText(_translate("MainWindow", "PushButton"))
         self.menuSerialPannel.setTitle(_translate("MainWindow", "SerialPannel"))
