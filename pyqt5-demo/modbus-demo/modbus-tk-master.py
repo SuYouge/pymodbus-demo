@@ -16,7 +16,7 @@ import modbus_tk.defines as cst
 from modbus_tk import modbus_rtu
 
 # PORT = 1
-PORT = '/dev/ttyS10'
+PORT = '/dev/ttyS1'
 
 def main():
     """main"""
@@ -35,10 +35,12 @@ def main():
         try:
             # 站号 功能码 起始地址 数量
             # logger.info(master.execute(1, cst.READ_HOLDING_REGISTERS, 0, 4)) # log
-            # res = master.execute(1, cst.READ_HOLDING_REGISTERS, 0, 3) # 
-            # logger.info(master.execute(1, cst.WRITE_SINGLE_COIL, 0, output_value=0))
-            logger.info(master.execute(1, cst.READ_INPUT_REGISTERS, 0, 1))
-            print(res)
+            # res = master.execute(1, cst.READ_HOLDING_REGISTERS, 0, 1) # 
+            # logger.info(master.execute(1, cst.WRITE_SINGLE_COIL, 0, output_value=1))
+            # logger.info(master.execute(1, cst.READ_INPUT_REGISTERS, 0, 1))
+            # logger.info(master.execute(1, cst.WRITE_MULTIPLE_COILS, 0, output_value=[0, 0, 0, 1, 1, 1, 1, 1]))
+            logger.info(master.execute(1, cst.WRITE_SINGLE_REGISTER, 0, output_value=2048))
+            # print(res)
         except Exception as exc:
             alarm = (str(exc))
         #send some queries
