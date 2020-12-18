@@ -10,6 +10,34 @@ import modbus_tk
 import modbus_tk.defines as cst
 from modbus_tk import modbus_rtu
 
+class readThread(QThread):
+    updated = pyqtSignal(str)
+    def __init__(self):
+        super(readThread, self).__init__()
+        self.ser = None
+        self.serial_message = None
+        self.run_flag = True
+    def setser(self, ser, serial_message):
+        self.ser = ser
+        self.serial_message = serial_message
+        self.run_flag = True
+        self.start()
+    def threadStop(self):
+        self.run_flag = False
+    def run(self):
+        print("Start Reading")
+        self.run_flag = True
+        while self.run_flag:
+            try:
+                if self.ser.in_waiting:
+                    # read_str=self.ser.read(self.ser.in_waiting ).decode("gbk")
+                    read_str=self.ser.read(self.ser.in_waiting ).hex()
+                    self.updated.emit(str("[Read ] {}".format(read_str)))
+                    time.sleep(0.05) # CPU占用过高
+            except Exception as e:
+                print(str(e))
+
+
 class MyWindow(QtWidgets.QMainWindow,Ui_MainWindow):
     """
     init:
@@ -72,6 +100,11 @@ class MyWindow(QtWidgets.QMainWindow,Ui_MainWindow):
                     self._serial_state("connected")
                     self.serial_message.append("[State] Seral connected")
                     self.serial_flag = True
+
+                    self.readthread = readThread()
+                    self.readthread.setser(self.ser, self.serial_message)
+                    self.readthread.updated.connect(self._thread_append)
+
             except Exception as e:
                 self.serial_message.append("Open {0} failed, make sure you open the device".format(serial_port))
                 self._serial_state("failed")
@@ -82,6 +115,11 @@ class MyWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         try:
             self.ser.flush()
             if self.ser.isOpen():
+                self.readthread.threadStop()
+                # self.readthread.wait()
+                self.readthread.quit()
+                self.readthread = None
+
                 self.master.close()
                 self.ser.close()
                 self._serial_state("wait")
@@ -274,6 +312,8 @@ class MyWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         for i in range (0,16):
             exec('self.led_widget._layout.addWidget(self.led_widget.led_output{0},1,{0}, 1, 1, QtCore.Qt.AlignCenter)'.format(i))
 
+    def _thread_append(self, text):
+        self.serial_message.append(text)
 if __name__ == "__main__":
     QtWidgets.QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     app=QtWidgets.QApplication(sys.argv)

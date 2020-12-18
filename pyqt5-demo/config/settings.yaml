@@ -5,10 +5,14 @@ digital_device: # 开关量
     swtich2: 2
     swtich3: 3
   output: # 读/写输出线圈 01/05
-    motor_h1: 1
-    motor_h2: 2
-    motor_l1: 3
-    motor_l2: 4
+    motor_1_h1: 1
+    motor_1_h2: 2
+    motor_1_l1: 3
+    motor_1_l2: 4
+    motor_1_h1: 5
+    motor_1_h2: 6
+    motor_1_l1: 7
+    motor_1_l2: 8
     lock: 5
 
 analog_device: # 模拟量

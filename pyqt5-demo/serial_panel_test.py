@@ -12,6 +12,7 @@ import serial
 # import serial.tools.list_ports
 import time
 # 中文乱码问题
+
 class readThread(QThread):
     updated = pyqtSignal(str)
     def __init__(self):
@@ -34,7 +35,7 @@ class readThread(QThread):
                 if self.ser.in_waiting:
                     # read_str=self.ser.read(self.ser.in_waiting ).decode("gbk")
                     read_str=self.ser.read(self.ser.in_waiting ).hex()
-                    self.updated.emit(str("[Read ] {}".format(read_str)))
+                    self.updated.emit(str("[Thread] {}".format(read_str)))
                     time.sleep(0.05) # CPU占用过高
             except Exception as e:
                 print(str(e))
