@@ -1,0 +1,46 @@
+digital_device: # 开关量
+  addr: 1 # 站号
+  input: # 读输入离散量 02
+    td01: 1 # 门口有人
+    td02: 2 # 门口有人
+    td03: 3 
+    td04: 4
+    td05: 5
+    td06: 6
+    td07: 7
+    td08: 8 # 门打开的限位开关
+    td09: 9 # 关门限位
+    td010: 10
+    td011: 11 # 压缩电机开始工作
+
+  output: # 读/写输出线圈 01/05
+    d01:
+      - 1 # h1
+      - 2 # h2
+      - 3 # l1
+      - 4 # l2
+    d02:
+      - 5
+      - 6
+      - 7
+      - 8
+    d03:
+      - 9
+      - 10
+      - 11
+      - 12
+    lock: 5
+
+analog_device: # 模拟量
+  addr: 2
+  input:
+    force: 1 # 读入寄存器 04
+
+rfid_device: # 只接收没有主动读
+  usart_port: 3
+  id:
+    - ASBDKLS
+    - ASBDKLS
+    - ASBDKLS
+    - ASBDKLS
+    - ASBDKLS
