@@ -15,7 +15,7 @@ import os
 import yaml
 
 class switch:
-    def __init__(self, addr, port, master):
+    def __init__(self, addr, port, master): # 站号， 地址， 主线程中modbus设备的实例
         self.addr = addr
         self.port = port
         self.master = master
@@ -26,7 +26,7 @@ class switch:
         return self.state
 
 class motor:
-    def __init__(self, addr, bridge, master):
+    def __init__(self, addr, bridge, master): # 站号， 四个继电器的地址
         self.addr = addr
         self.bridge = bridge
         self.master = master
@@ -94,7 +94,8 @@ class workThread(QThread):
     def run(self):
         print("Start Working thread")
         # while True:
-        print(self.switch_1.check_on())
+        # print(self.switch_1.check_on())
+        self.updated.emit(str("[Read ] switch at {0}, state = {1}".format(self.switch_1.port, self.switch_1.check_on())))
         print("Working thread died")
 
     
@@ -163,8 +164,11 @@ class MyWindow(QtWidgets.QMainWindow,Ui_MainWindow):
             parity = self.parity.currentText()
             stop_bit = int(self.stop_bit.currentText())
             try:
+                # 门禁串口
                 self.ser=serial.Serial(port=serial_port,baudrate=baud_rate,bytesize=data_bit,parity=parity,stopbits=stop_bit)
+                # 485设备串口
                 self.mod=serial.Serial(port=modbus_port,baudrate=baud_rate,bytesize=data_bit,parity=parity,stopbits=stop_bit)
+                # modbus对象
                 self.master = modbus_rtu.RtuMaster(self.mod)
                 self.master.set_timeout(0.5)
                 self.master.set_verbose(True)

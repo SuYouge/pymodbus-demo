@@ -1,0 +1,13 @@
+<RCC>
+  <qresource prefix="layer">
+    <file>gui_source.qrc</file>
+    <file>source/8.jpg</file>
+    <file>source/7.jpg</file>
+    <file>source/6.jpg</file>
+    <file>source/5.jpg</file>
+    <file>source/4.jpg</file>
+    <file>source/3.jpg</file>
+    <file>source/2.jpg</file>
+    <file>source/1.jpg</file>
+  </qresource>
+</RCC>
